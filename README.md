@@ -27,6 +27,7 @@ git clone <repository-url>
 cd <repository-folder>
 
 2. Set Up a Virtual Environment (Optional but Recommended):
+
         Create and activate a virtual environment:
 
 Code:
@@ -35,12 +36,14 @@ python -m venv env
 source env/bin/activate  # On Windows: env\Scripts\activate
 
 3. Install Required Libraries:
+
         Install the dependencies listed in the requirements.txt file:
 
 Code:
 pip install -r requirements.txt
 
 4. Launch the Application:
+
         Start the Streamlit app:
 
 Code:
