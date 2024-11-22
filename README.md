@@ -28,10 +28,11 @@ cd <repository-folder>
 
 2. Set Up a Virtual Environment (Optional but Recommended):
 
-        Create and activate a virtual environment:
+    Create and activate a virtual environment:
 
 Code:
-python -m venv env
+
+    python -m venv env
 
 source env/bin/activate  # On Windows: env\Scripts\activate
 
