@@ -11,33 +11,38 @@ st.write(df)
 
 st.header("Vehicle Data Analysis Dashboard")
 
-fig, ax = plt.subplots()
-df['price'].hist(ax=ax, bins=35, log=True)
-ax.set_title('Price Distribution')
-ax.set_xlabel('Price')
-ax.set_ylabel('Frequency')
+fig = px.histogram(df, x='price', nbins=35, log_y=True, title='Price Distribution')
+fig.update_layout(
+    xaxis_title='Price',
+    yaxis_title='Frequency'
+)
 
-st.pyplot(fig)
+st.plotly_chart(fig)
 
-fig_1, ax = plt.subplots()
-df['model'].value_counts().head(10).plot(kind='bar', ax=ax)
-ax.set_title('Top 10 Vehicle Makes')
-ax.set_xlabel('Make')
-ax.set_ylabel('Count')
+top_10_makes = df['model'].value_counts().head(10).reset_index()
+top_10_makes.columns = ['model', 'count']
 
-st.pyplot(fig_1)
+fig_1 = px.bar(top_10_makes, x='model', y='count', title='Top 10 Vehicle Makes')
+fig_1.update_layout(
+    xaxis_title='Make',
+    yaxis_title='Count'
+)
 
-import seaborn as sns
+st.plotly_chart(fig_1)
 
-fig_3, ax = plt.subplots()
-sns.scatterplot(data=df, x='type', y='price', alpha=0.5, ax=ax)
-ax.set_title('Price vs Vehicle Type')
-ax.set_xlabel('Vehicle Type')
-ax.set_ylabel('Price')
-ax.set_xticks(ax.get_xticks())
-ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
-
-st.pyplot(fig_3)
+fig_3 = px.scatter(
+    df,
+    x='type',
+    y='price',
+    opacity=0.5,
+    title='Price vs Vehicle Type'
+)
+fig_3.update_layout(
+    xaxis_title='Vehicle Type',
+    yaxis_title='Price',
+    xaxis=dict(tickangle=45)  # Rotate x-axis labels
+)
+st.plotly_chart(fig_3)
 
 st.write("Checkbox for Sales of Vehicles")
 
@@ -50,12 +55,12 @@ count_threshold = st.slider(
 )
 
 filtered_models = df['model'].value_counts()
-filtered_models = filtered_models[filtered_models >= count_threshold]
+filtered_models = filtered_models[filtered_models >= count_threshold].reset_index()
+filtered_models.columns = ['model', 'count']
 
-fig_4, ax = plt.subplots()
-filtered_models.plot(kind='bar', ax=ax)
-ax.set_title('Sales Distribution of Popular Vehicle Models')
-ax.set_xlabel('Model')
-ax.set_ylabel('Count')
-
-st.pyplot(fig_4)
+fig_4 = px.bar(filtered_models, x='model', y='count', title='Sales Distribution of Popular Vehicle Models')
+fig_4.update_layout(
+    xaxis_title='Model',
+    yaxis_title='Count'
+)
+st.plotly_chart(fig_4)
